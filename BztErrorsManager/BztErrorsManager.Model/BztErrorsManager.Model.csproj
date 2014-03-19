@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4076FB6F-B0FB-40E4-A840-173988DB1BE7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BztErrorsManager.Model</RootNamespace>
+    <AssemblyName>BztErrorsManager.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\ActionType.cs" />
+    <Compile Include="Models\Alert.cs" />
+    <Compile Include="Models\AlertCondition.cs" />
+    <Compile Include="Models\AlertEmail.cs" />
+    <Compile Include="Models\AlertHistory.cs" />
+    <Compile Include="Models\AlertSubscription.cs" />
+    <Compile Include="Models\AlertSubscriptionHistory.cs" />
+    <Compile Include="Models\AuditLog.cs" />
+    <Compile Include="Models\AuditLogMessageData.cs" />
+    <Compile Include="Models\Batch.cs" />
+    <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\ContextProperty.cs" />
+    <Compile Include="Models\EsbExceptionDbContext.cs" />
+    <Compile Include="Models\Fault.cs" />
+    <Compile Include="Models\Mapping\ActionTypeMap.cs" />
+    <Compile Include="Models\Mapping\AlertConditionMap.cs" />
+    <Compile Include="Models\Mapping\AlertEmailMap.cs" />
+    <Compile Include="Models\Mapping\AlertHistoryMap.cs" />
+    <Compile Include="Models\Mapping\AlertMap.cs" />
+    <Compile Include="Models\Mapping\AlertSubscriptionHistoryMap.cs" />
+    <Compile Include="Models\Mapping\AlertSubscriptionMap.cs" />
+    <Compile Include="Models\Mapping\AuditLogMap.cs" />
+    <Compile Include="Models\Mapping\AuditLogMessageDataMap.cs" />
+    <Compile Include="Models\Mapping\BatchMap.cs" />
+    <Compile Include="Models\Mapping\ConfigurationMap.cs" />
+    <Compile Include="Models\Mapping\ContextPropertyMap.cs" />
+    <Compile Include="Models\Mapping\FaultMap.cs" />
+    <Compile Include="Models\Mapping\MessageDataMap.cs" />
+    <Compile Include="Models\Mapping\MessageMap.cs" />
+    <Compile Include="Models\Mapping\ProcessedFaultMap.cs" />
+    <Compile Include="Models\Mapping\UserSettingMap.cs" />
+    <Compile Include="Models\Mapping\vw_AggregatedFaultsMap.cs" />
+    <Compile Include="Models\Mapping\vw_ApplicationHeaderMap.cs" />
+    <Compile Include="Models\Mapping\vw_FaultsByAppheaderMap.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageData.cs" />
+    <Compile Include="Models\ProcessedFault.cs" />
+    <Compile Include="Models\UserSetting.cs" />
+    <Compile Include="Models\vw_AggregatedFaults.cs" />
+    <Compile Include="Models\vw_ApplicationHeader.cs" />
+    <Compile Include="Models\vw_FaultsByAppheader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
