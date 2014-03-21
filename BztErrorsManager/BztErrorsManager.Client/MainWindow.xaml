@@ -1,8 +1,59 @@
 ﻿<Window x:Class="BztErrorsManager.Client.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+		Title="BizTalk Errors Managers" Height="600" Width="800">
+	<DockPanel>
+		<Expander ExpandDirection="Down" DockPanel.Dock="Top" Header="Filtres">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100" />
+					<ColumnDefinition Width="150" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<Label Grid.Row="0" Grid.Column="0" Content="Type : " Width="100" />
+				<ComboBox Grid.Row="0" Grid.Column="1" Name="cmbTypesRq" ItemsSource="{Binding Path=RqTypes}" SelectedValue="{Binding Path=CurrentRqType}" />
+
+				<Label Grid.Row="1" Grid.Column="0" Content="Limite résultats : " />
+				<xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Path=CurrentLimit}" Text="{Binding Path=CurrentLimit}" Increment="1" Minimum="0" />
+				<Label Grid.Row="1" Grid.Column="2" Content="(X dernières erreurs enregistrées. 0 => pas de limite)" />
+
+				<Label Grid.Row="2" Grid.Column="0" Content="Code(s) : " />
+				<ListBox Grid.Row="2" Grid.Column="1" Name="lbxFaultCodes" MaxHeight="100"
+						 ItemsSource="{Binding Path=FaultCodes}" 
+						 SelectionMode="Multiple"/>
+				<Label Grid.Row="2" Grid.Column="2" Content="(Sélection multiple possible)" />
+			</Grid>
+		</Expander>
+
+		<Button DockPanel.Dock="Top" Name="btnSearch" Width="75" Margin="0,5,0,5" Command="{Binding Path=RefreshListCmd}" CommandParameter="{Binding ElementName=lbxFaultCodes, Path=SelectedItems}">
+			<TextBlock Text="Rechercher" />
+		</Button>
+		
+		<Label Content="{Binding Path=MsgInfo}" DockPanel.Dock="Top" Margin="0,5,0,5" />
+
+		
+		<Expander DockPanel.Dock="Bottom" IsExpanded="False" Header="Message origine" ExpandDirection="Up">
+			<TextBox IsReadOnly="True" VerticalScrollBarVisibility="Auto" Height="250"
+					 Text="{Binding ElementName=dtgFaults, Path=SelectedItem.MessageData}"/>
+		</Expander>
+		
+		<DataGrid Name="dtgFaults" ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False">
+			<DataGrid.Columns>
+				<DataGridCheckBoxColumn Header="Treated" Binding="{Binding Path=Treated}" IsReadOnly="True" />
+				<DataGridTextColumn Header="Date/Heure" Binding="{Binding Path=DateTime, StringFormat=\{0:g\}}" IsReadOnly="True" />
+				<DataGridTextColumn Header="Fault Code" Binding="{Binding Path=FaultCode}" IsReadOnly="True" />
+				<DataGridTextColumn Header="Catégorie" Binding="{Binding Path=Category}" IsReadOnly="True" />
+				<DataGridTextColumn Header="Application" Binding="{Binding Path=Application}" IsReadOnly="True" />
+				<DataGridTextColumn Header="Description" Binding="{Binding Path=FaultDescription}" Width="*" IsReadOnly="True" />
+			</DataGrid.Columns>
+		</DataGrid>
+	</DockPanel>		
 </Window>
