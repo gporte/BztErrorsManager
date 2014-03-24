@@ -187,6 +187,9 @@ namespace BztErrorsManager.Client
 			// rajout du tri (sur DateTime, descendant)
 			rqBase = rqBase.OrderByDescending(x => x.DateTime);
 
+			// requête permettant de connaître le nombre total de lignes sans limite
+			var rqNbTotal = rqBase.Count();
+
 			// rajout de la limite (si nécessaire)
 			if (this.CurrentLimit > 0) {
 				rqBase = rqBase.Take(this.CurrentLimit);
@@ -198,7 +201,7 @@ namespace BztErrorsManager.Client
 			this.Items = new ObservableCollection<vw_FaultsByAppheader>(rqBase.ToList());
 			watch.Stop();
 
-			this.MsgInfo = string.Format("{0} ligne(s) remontée(s) en {1} secondes.", this.Items.Count, watch.ElapsedMilliseconds / 1000);
+			this.MsgInfo = string.Format("{0} ligne(s) remontée(s) (sur un total de {1}) en {2} secondes.", this.Items.Count, rqNbTotal, watch.ElapsedMilliseconds / 1000);
 		}
 
 		private void SetFlagTraite(object param) {
@@ -207,7 +210,6 @@ namespace BztErrorsManager.Client
 
 			try {
 				foreach (var fault in faults) {
-					//this._context.Faults.Find(fault.FaultID).Treated = true;
 					fault.Treated = true;
 				}
 
