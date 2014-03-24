@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BizTalkMgmtDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="adm_Adapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Capabilities" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="MgmtCLSID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InboundEngineCLSID" Type="uniqueidentifier" />
+          <Property Name="InboundAssemblyPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="InboundTypeName" Type="nvarchar" MaxLength="256" />
+          <Property Name="OutboundEngineCLSID" Type="uniqueidentifier" />
+          <Property Name="OutboundAssemblyPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="OutboundTypeName" Type="nvarchar" MaxLength="256" />
+          <Property Name="PropertyNameSpace" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="DefaultRHCfg" Type="ntext" />
+          <Property Name="DefaultTHCfg" Type="ntext" />
+        </EntityType>
+        <EntityType Name="adm_ReceiveLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdapterId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ReceiveHandlerId" Type="int" />
+          <Property Name="GroupId" Type="int" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="OperatingWindowEnabled" Type="int" Nullable="false" />
+          <Property Name="ActiveStartDT" Type="datetime" />
+          <Property Name="ActiveStopDT" Type="datetime" />
+          <Property Name="StartDTEnabled" Type="bit" Nullable="false" />
+          <Property Name="SrvWinStartDT" Type="datetime" />
+          <Property Name="StopDTEnabled" Type="bit" Nullable="false" />
+          <Property Name="SrvWinStopDT" Type="datetime" />
+          <Property Name="Disabled" Type="int" Nullable="false" />
+          <Property Name="CustomCfg" Type="ntext" />
+          <Property Name="uidCustomCfgID" Type="uniqueidentifier" />
+          <Property Name="bSSOMappingExists" Type="bit" Nullable="false" />
+          <Property Name="InboundTransportURL" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="InboundAddressableURL" Type="nvarchar" MaxLength="256" />
+          <Property Name="ReceivePipelineId" Type="int" />
+          <Property Name="ReceivePipelineData" Type="ntext" />
+          <Property Name="ReceivePortId" Type="int" Nullable="false" />
+          <Property Name="IsPrimary" Type="int" Nullable="false" />
+          <Property Name="Fragmentation" Type="int" Nullable="false" />
+          <Property Name="nvcCustomData" Type="ntext" />
+          <Property Name="SendPipelineId" Type="int" />
+          <Property Name="EncryptionCert" Type="nvarchar" MaxLength="256" />
+          <Property Name="EncryptionCertThumbPrint" Type="nvarchar" MaxLength="80" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="SendPipelineData" Type="ntext" />
+        </EntityType>
+        <Association Name="adm_ReceiveLocation_fk_adapter">
+          <End Role="adm_Adapter" Type="Self.adm_Adapter" Multiplicity="1" />
+          <End Role="adm_ReceiveLocation" Type="Self.adm_ReceiveLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adm_Adapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="adm_ReceiveLocation">
+              <PropertyRef Name="AdapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BizTalkMgmtDbModelStoreContainer">
+          <EntitySet Name="adm_Adapter" EntityType="Self.adm_Adapter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="adm_ReceiveLocation" EntityType="Self.adm_ReceiveLocation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="adm_ReceiveLocation_fk_adapter" Association="Self.adm_ReceiveLocation_fk_adapter">
+            <End Role="adm_Adapter" EntitySet="adm_Adapter" />
+            <End Role="adm_ReceiveLocation" EntitySet="adm_ReceiveLocation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BizTalkMgmtDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="adm_ReceiveLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdapterId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReceiveHandlerId" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OperatingWindowEnabled" Type="Int32" Nullable="false" />
+          <Property Name="ActiveStartDT" Type="DateTime" Precision="3" />
+          <Property Name="ActiveStopDT" Type="DateTime" Precision="3" />
+          <Property Name="StartDTEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="SrvWinStartDT" Type="DateTime" Precision="3" />
+          <Property Name="StopDTEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="SrvWinStopDT" Type="DateTime" Precision="3" />
+          <Property Name="Disabled" Type="Int32" Nullable="false" />
+          <Property Name="CustomCfg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="uidCustomCfgID" Type="Guid" />
+          <Property Name="bSSOMappingExists" Type="Boolean" Nullable="false" />
+          <Property Name="InboundTransportURL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InboundAddressableURL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivePipelineId" Type="Int32" />
+          <Property Name="ReceivePipelineData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivePortId" Type="Int32" Nullable="false" />
+          <Property Name="IsPrimary" Type="Int32" Nullable="false" />
+          <Property Name="Fragmentation" Type="Int32" Nullable="false" />
+          <Property Name="nvcCustomData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SendPipelineId" Type="Int32" />
+          <Property Name="EncryptionCert" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EncryptionCertThumbPrint" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SendPipelineData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="adm_Adapter" Relationship="BizTalkMgmtDbModel.adm_ReceiveLocation_fk_adapter" FromRole="adm_ReceiveLocation" ToRole="adm_Adapter" />
+        </EntityType>
+        <EntityContainer Name="BizTalkMgmtDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="adm_ReceiveLocation" EntityType="Self.adm_ReceiveLocation" />
+          <EntitySet Name="adm_Adapter" EntityType="BizTalkMgmtDbModel.adm_Adapter" />
+          <AssociationSet Name="adm_ReceiveLocation_fk_adapter" Association="BizTalkMgmtDbModel.adm_ReceiveLocation_fk_adapter">
+            <End Role="adm_Adapter" EntitySet="adm_Adapter" />
+            <End Role="adm_ReceiveLocation" EntitySet="adm_ReceiveLocation" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="adm_Adapter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Capabilities" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MgmtCLSID" Type="Guid" Nullable="false" />
+          <Property Name="InboundEngineCLSID" Type="Guid" />
+          <Property Name="InboundAssemblyPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="InboundTypeName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OutboundEngineCLSID" Type="Guid" />
+          <Property Name="OutboundAssemblyPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="OutboundTypeName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PropertyNameSpace" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultRHCfg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultTHCfg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="adm_ReceiveLocation" Relationship="BizTalkMgmtDbModel.adm_ReceiveLocation_fk_adapter" FromRole="adm_Adapter" ToRole="adm_ReceiveLocation" />
+        </EntityType>
+        <Association Name="adm_ReceiveLocation_fk_adapter">
+          <End Type="BizTalkMgmtDbModel.adm_Adapter" Role="adm_Adapter" Multiplicity="1" />
+          <End Type="BizTalkMgmtDbModel.adm_ReceiveLocation" Role="adm_ReceiveLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="adm_Adapter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="adm_ReceiveLocation">
+              <PropertyRef Name="AdapterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BizTalkMgmtDbModelStoreContainer" CdmEntityContainer="BizTalkMgmtDbEntities">
+          <EntitySetMapping Name="adm_ReceiveLocation">
+            <EntityTypeMapping TypeName="BizTalkMgmtDbModel.adm_ReceiveLocation">
+              <MappingFragment StoreEntitySet="adm_ReceiveLocation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdapterId" ColumnName="AdapterId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ReceiveHandlerId" ColumnName="ReceiveHandlerId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="OperatingWindowEnabled" ColumnName="OperatingWindowEnabled" />
+                <ScalarProperty Name="ActiveStartDT" ColumnName="ActiveStartDT" />
+                <ScalarProperty Name="ActiveStopDT" ColumnName="ActiveStopDT" />
+                <ScalarProperty Name="StartDTEnabled" ColumnName="StartDTEnabled" />
+                <ScalarProperty Name="SrvWinStartDT" ColumnName="SrvWinStartDT" />
+                <ScalarProperty Name="StopDTEnabled" ColumnName="StopDTEnabled" />
+                <ScalarProperty Name="SrvWinStopDT" ColumnName="SrvWinStopDT" />
+                <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+                <ScalarProperty Name="CustomCfg" ColumnName="CustomCfg" />
+                <ScalarProperty Name="uidCustomCfgID" ColumnName="uidCustomCfgID" />
+                <ScalarProperty Name="bSSOMappingExists" ColumnName="bSSOMappingExists" />
+                <ScalarProperty Name="InboundTransportURL" ColumnName="InboundTransportURL" />
+                <ScalarProperty Name="InboundAddressableURL" ColumnName="InboundAddressableURL" />
+                <ScalarProperty Name="ReceivePipelineId" ColumnName="ReceivePipelineId" />
+                <ScalarProperty Name="ReceivePipelineData" ColumnName="ReceivePipelineData" />
+                <ScalarProperty Name="ReceivePortId" ColumnName="ReceivePortId" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="Fragmentation" ColumnName="Fragmentation" />
+                <ScalarProperty Name="nvcCustomData" ColumnName="nvcCustomData" />
+                <ScalarProperty Name="SendPipelineId" ColumnName="SendPipelineId" />
+                <ScalarProperty Name="EncryptionCert" ColumnName="EncryptionCert" />
+                <ScalarProperty Name="EncryptionCertThumbPrint" ColumnName="EncryptionCertThumbPrint" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SendPipelineData" ColumnName="SendPipelineData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="adm_Adapter">
+            <EntityTypeMapping TypeName="BizTalkMgmtDbModel.adm_Adapter">
+              <MappingFragment StoreEntitySet="adm_Adapter">
+                <ScalarProperty Name="DefaultTHCfg" ColumnName="DefaultTHCfg" />
+                <ScalarProperty Name="DefaultRHCfg" ColumnName="DefaultRHCfg" />
+                <ScalarProperty Name="PropertyNameSpace" ColumnName="PropertyNameSpace" />
+                <ScalarProperty Name="OutboundTypeName" ColumnName="OutboundTypeName" />
+                <ScalarProperty Name="OutboundAssemblyPath" ColumnName="OutboundAssemblyPath" />
+                <ScalarProperty Name="OutboundEngineCLSID" ColumnName="OutboundEngineCLSID" />
+                <ScalarProperty Name="InboundTypeName" ColumnName="InboundTypeName" />
+                <ScalarProperty Name="InboundAssemblyPath" ColumnName="InboundAssemblyPath" />
+                <ScalarProperty Name="InboundEngineCLSID" ColumnName="InboundEngineCLSID" />
+                <ScalarProperty Name="MgmtCLSID" ColumnName="MgmtCLSID" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Capabilities" ColumnName="Capabilities" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
