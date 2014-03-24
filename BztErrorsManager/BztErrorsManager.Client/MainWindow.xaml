@@ -60,7 +60,25 @@
 		
 		<DataGrid Name="dtgFaults" ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False">
 			<DataGrid.Columns>
-				<DataGridCheckBoxColumn Header="Treated" Binding="{Binding Path=Treated}" IsReadOnly="True" />
+				<DataGridTemplateColumn>
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Image Source="Img/btn_treated.png">
+								<Image.Style>
+									<Style TargetType="{x:Type Image}">
+										<Setter Property="Visibility" Value="Collapsed" />
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding Path=Treated}" Value="True">
+												<Setter Property="Visibility" Value="Visible" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Image.Style>
+							</Image>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				
 				<DataGridTextColumn Header="Date/Heure" Binding="{Binding Path=DateTime, StringFormat=\{0:g\}}" IsReadOnly="True" />
 				<DataGridTextColumn Header="Fault Code" Binding="{Binding Path=FaultCode}" IsReadOnly="True" />
 				<DataGridTextColumn Header="Catégorie" Binding="{Binding Path=Category}" IsReadOnly="True" />

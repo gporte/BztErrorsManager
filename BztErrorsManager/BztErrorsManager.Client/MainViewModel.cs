@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
+using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
@@ -206,11 +207,11 @@ namespace BztErrorsManager.Client
 
 			try {
 				foreach (var fault in faults) {
-					this._context.Faults.Find(fault.FaultID).Treated = true;
+					//this._context.Faults.Find(fault.FaultID).Treated = true;
+					fault.Treated = true;
 				}
 
 				this._context.SaveChanges();
-				this.MsgInfo = "Les lignes sélectionnées ont été marquées comme traitées. Lancer une nouvelle recherche pour rafraîchir la liste.";
 
 				this.RefreshList(this._selectedFaultCodes);
 			}
