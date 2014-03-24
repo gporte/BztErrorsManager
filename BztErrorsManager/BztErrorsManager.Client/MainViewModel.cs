@@ -1,6 +1,7 @@
 ﻿using BztErrorsManager.Client.Commands;
 using BztErrorsManager.Client.Constantes;
 using BztErrorsManager.Client.Utility;
+using BztErrorsManager.Model.ModelBzt;
 using BztErrorsManager.Model.Models;
 using System;
 using System.Collections;
@@ -20,6 +21,7 @@ namespace BztErrorsManager.Client
 		private IEnumerable<string> _selectedFaultCodes;
 		
 		private EsbExceptionDbContext _context;
+		private BizTalkMgmtDbEntities _bztContext;
 		
 		#region Items property
 		private ObservableCollection<vw_FaultsByAppheader> _items;
@@ -48,13 +50,26 @@ namespace BztErrorsManager.Client
 		#endregion
 
 		#region RcvLocations property
-		private List<string> _rcvLocations;
-		public List<string> RcvLocations {
+		private List<adm_ReceiveLocation> _rcvLocations;
+		public List<adm_ReceiveLocation> RcvLocations {
 			get { return this._rcvLocations; }
 			set {
 				if (this._rcvLocations != value) {
 					this._rcvLocations = value;
 					this.RaisePropertyChangedEvent("RcvLocations");
+				}
+			}
+		}
+		#endregion
+
+		#region SelectedRcvLoc property
+		private adm_ReceiveLocation _selectedRcvLoc;
+		public adm_ReceiveLocation SelectedRcvLoc {
+			get { return this._selectedRcvLoc; }
+			set {
+				if (this._selectedRcvLoc != value) {
+					this._selectedRcvLoc = value;
+					this.RaisePropertyChangedEvent("SelectedRcvLoc");
 				}
 			}
 		}
@@ -123,14 +138,17 @@ namespace BztErrorsManager.Client
 		#endregion
 
 		public MainViewModel() {
-			_context = new EsbExceptionDbContext();
+			this._context = new EsbExceptionDbContext();
+			this._bztContext = new BizTalkMgmtDbEntities();
+
 			this.RefreshListCmd = new RelayCommand<object>(this.RefreshList);
 			this.SetFlagTraiteCmd = new RelayCommand<object>(this.SetFlagTraite);
-			this.ResubmitMsgCmd = new RelayCommand<object>(this.ResubmitMsg);
+			this.ResubmitMsgCmd = new RelayCommand<object>(this.ResubmitMsg, this.CanResubmitMsg);
 
 			this.MsgInfo = "Cliquer sur Rechercher pour lancer la récupération des lignes.";
 
 			this.InitializeFilterDatas();
+			this.RcvLocations = this._bztContext.adm_ReceiveLocation.Where(x => x.adm_Adapter.Name == "HTTP").OrderBy(x => x.Name).ToList();
 		}
 
 		private void InitializeFilterDatas() {
@@ -202,22 +220,23 @@ namespace BztErrorsManager.Client
 			}
 		}
 
+		private bool CanResubmitMsg(object param) {
+			//return param != null && this.SelectedRcvLoc != null;
+			// TODO bouchon
+			return false;
+		}
+
 		private void ResubmitMsg(object param) {
 			var selectedFaults = (IList)param;
 			var faults = selectedFaults.Cast<vw_FaultsByAppheader>();
-
-			// TODO bouchon
-			var selectedLocation = "TODO";
 
 			try {
 				foreach (var fault in faults) {
 					var msg = this._context.Messages.FirstOrDefault(x => x.FaultID == fault.FaultID);
 					var msgDatas = this._context.MessageDatas.FirstOrDefault(x => x.MessageID == msg.MessageID);
 
-					var resultCode = MessageResubmitter.ResubmitHTTP(selectedLocation, msgDatas.MessageData1, msg.ContentType);
+					var resultCode = MessageResubmitter.ResubmitHTTP(this.SelectedRcvLoc.InboundAddressableURL, msgDatas.MessageData1, msg.ContentType);
 				}
-
-				this.MsgInfo = "Les lignes sélectionnées ont été marquées comme traitées. Lancer une nouvelle recherche pour rafraîchir la liste.";
 
 				this.RefreshList(this._selectedFaultCodes);
 			}
