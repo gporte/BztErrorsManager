@@ -43,14 +43,6 @@
 			<Button Name="btnTraiter" Command="{Binding Path=SetFlagTraiteCmd}" CommandParameter="{Binding ElementName=dtgFaults, Path=SelectedItems}">
 				<TextBlock Text="Traiter" />
 			</Button>
-
-			<ComboBox Name="cmbRcvLoc" 
-					  ItemsSource="{Binding Path=RcvLocations}" SelectedItem="{Binding Path=SelectedRcvLoc}"
-					  DisplayMemberPath="Name" Width="200" Margin="20,0,10,0" />
-
-			<Button Name="btnRejouer" Command="{Binding Path=ResubmitMsgCmd}" CommandParameter="{Binding ElementName=dtgFaults, Path=SelectedItems}">
-				<TextBlock Text="Rejouer" />
-			</Button>
 		</StackPanel>
 
 		<Expander DockPanel.Dock="Bottom" IsExpanded="False" Header="Message origine" ExpandDirection="Up">

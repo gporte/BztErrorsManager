@@ -48,27 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelBzt\adm_Adapter.cs">
-      <DependentUpon>BztModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBzt\adm_ReceiveLocation.cs">
-      <DependentUpon>BztModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBzt\BztModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BztModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBzt\BztModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BztModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelBzt\BztModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BztModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\ActionType.cs" />
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\AlertCondition.cs" />
@@ -114,23 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="ModelBzt\BztModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BztModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ModelBzt\BztModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BztModel.edmx</DependentUpon>
-      <LastGenOutput>BztModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="ModelBzt\BztModel.edmx.diagram">
-      <DependentUpon>BztModel.edmx</DependentUpon>
-    </None>
-    <None Include="ModelBzt\BztModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BztModel.edmx</DependentUpon>
-      <LastGenOutput>BztModel.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
