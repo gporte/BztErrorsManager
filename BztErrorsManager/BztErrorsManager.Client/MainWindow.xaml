@@ -39,7 +39,12 @@
 		
 		<Label Content="{Binding Path=MsgInfo}" DockPanel.Dock="Top" Margin="0,5,0,5" />
 
-		
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5,10,5,10">
+			<Button Name="btnTraiter" Command="{Binding Path=SetFlagTraiteCmd}" CommandParameter="{Binding ElementName=dtgFaults, Path=SelectedItems}">
+				<TextBlock Text="Traiter" />
+			</Button>
+		</StackPanel>
+
 		<Expander DockPanel.Dock="Bottom" IsExpanded="False" Header="Message origine" ExpandDirection="Up">
 			<TextBox IsReadOnly="True" VerticalScrollBarVisibility="Auto" Height="250"
 					 Text="{Binding ElementName=dtgFaults, Path=SelectedItem.MessageData}"/>
