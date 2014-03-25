@@ -21,15 +21,15 @@
 				<Label Grid.Row="0" Grid.Column="0" Content="Type : " Width="100" />
 				<ComboBox Grid.Row="0" Grid.Column="1" Name="cmbTypesRq" ItemsSource="{Binding Path=RqTypes}" SelectedValue="{Binding Path=CurrentRqType}" />
 
-				<Label Grid.Row="1" Grid.Column="0" Content="Limite résultats : " />
-				<xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Path=CurrentLimit}" Text="{Binding Path=CurrentLimit}" Increment="1" Minimum="0" />
-				<Label Grid.Row="1" Grid.Column="2" Content="(X dernières erreurs enregistrées. 0 => pas de limite)" />
-
-				<Label Grid.Row="2" Grid.Column="0" Content="Code(s) : " />
-				<ListBox Grid.Row="2" Grid.Column="1" Name="lbxFaultCodes" MaxHeight="100"
+				<Label Grid.Row="1" Grid.Column="0" Content="Code(s) : " />
+				<ListBox Grid.Row="1" Grid.Column="1" Name="lbxFaultCodes" MaxHeight="100"
 						 ItemsSource="{Binding Path=FaultCodes}" 
 						 SelectionMode="Multiple"/>
-				<Label Grid.Row="2" Grid.Column="2" Content="(Sélection multiple possible)" />
+				<Label Grid.Row="1" Grid.Column="2" Content="(Sélection multiple possible)" />
+
+				<Label Grid.Row="2" Grid.Column="0" Content="Limite résultats : " />
+				<xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Value="{Binding Path=CurrentLimit}" Text="{Binding Path=CurrentLimit}" Increment="1" Minimum="0" />
+				<Label Grid.Row="2" Grid.Column="2" Content="(X résultats les plus récents. 0 => pas de limite)" />
 			</Grid>
 		</Expander>
 
@@ -39,6 +39,10 @@
 		
 		<Label Content="{Binding Path=MsgInfo}" DockPanel.Dock="Top" Margin="0,5,0,5" />
 
+		<StatusBar DockPanel.Dock="Bottom" Height="25">
+			<TextBlock Text="{Binding Path=ConnectionInfo, StringFormat='Connexion : {0}'}" />
+		</StatusBar>
+		
 		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5,10,5,10">
 			<Button Name="btnTraiter" Command="{Binding Path=SetFlagTraiteCmd}" CommandParameter="{Binding ElementName=dtgFaults, Path=SelectedItems}">
 				<TextBlock Text="Traiter" />

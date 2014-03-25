@@ -86,6 +86,19 @@ namespace BztErrorsManager.Client
 		}
 		#endregion
 
+		#region ConnectionInfo property
+		private string _connectionInfo;
+		public string ConnectionInfo {
+			get { return this._connectionInfo; }
+			set {
+				if (this._connectionInfo != value) {
+					this._connectionInfo = value;
+					this.RaisePropertyChangedEvent("ConnectionInfo");
+				}
+			}
+		}
+		#endregion
+
 		#region MsgInfo property
 		private string _msgInfo;
 		public string MsgInfo {
@@ -110,6 +123,7 @@ namespace BztErrorsManager.Client
 
 		public MainViewModel() {
 			this._context = new EsbExceptionDbContext();
+			this.ConnectionInfo = this._context.Database.Connection.DataSource;
 
 			this.RefreshListCmd = new RelayCommand<object>(this.RefreshList);
 			this.SetFlagTraiteCmd = new RelayCommand<object>(this.SetFlagTraite);
