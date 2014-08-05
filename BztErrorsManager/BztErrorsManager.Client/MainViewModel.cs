@@ -73,6 +73,19 @@ namespace BztErrorsManager.Client
 		}
 		#endregion
 
+		#region MsgContentFilter property
+		private string _msgContentFilter;
+		public string MsgContentFilter {
+			get { return this._msgContentFilter; }
+			set {
+				if (this._msgContentFilter != value) {
+					this._msgContentFilter = value;
+					this.RaisePropertyChangedEvent("MsgContentFilter");
+				}
+			}
+		}
+		#endregion
+
 		#region MsgContent property
 		private string _msgContent;
 		public string MsgContent {
@@ -167,6 +180,11 @@ namespace BztErrorsManager.Client
 
 			// rajout du tri (sur DateTime, descendant)
 			rqBase = rqBase.OrderByDescending(x => x.DateTime);
+
+			// rajout du tri sur le contenu du message (si nécessaire)
+			if (!string.IsNullOrEmpty(this.MsgContentFilter)) {
+				rqBase = rqBase.Where(x => x.MessageData.Contains(this.MsgContentFilter));
+			}
 
 			// requête permettant de connaître le nombre total de lignes sans limite
 			var rqNbTotal = rqBase.Count();

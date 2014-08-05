@@ -16,6 +16,7 @@
 					<RowDefinition />
 					<RowDefinition />
 					<RowDefinition />
+					<RowDefinition />
 				</Grid.RowDefinitions>
 
 				<Label Grid.Row="0" Grid.Column="0" Content="Type : " Width="100" />
@@ -27,9 +28,13 @@
 						 SelectionMode="Multiple"/>
 				<Label Grid.Row="1" Grid.Column="2" Content="(Sélection multiple possible)" />
 
-				<Label Grid.Row="2" Grid.Column="0" Content="Limite résultats : " />
-				<xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Value="{Binding Path=CurrentLimit}" Text="{Binding Path=CurrentLimit}" Increment="1" Minimum="0" />
-				<Label Grid.Row="2" Grid.Column="2" Content="(X résultats les plus récents. 0 => pas de limite)" />
+				<Label Grid.Row="2" Grid.Column="0" Content="Contenu : " />
+				<TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=MsgContentFilter}" />
+				<Label Grid.Row="2" Grid.Column="2" Content="Chaîne contenu dans le message (/!\ peut ralentir la recherche!)" />
+				
+				<Label Grid.Row="3" Grid.Column="0" Content="Limite résultats : " />
+				<xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Value="{Binding Path=CurrentLimit}" Text="{Binding Path=CurrentLimit}" Increment="1" Minimum="0" />
+				<Label Grid.Row="3" Grid.Column="2" Content="(X résultats les plus récents. 0 => pas de limite)" />
 			</Grid>
 		</Expander>
 
