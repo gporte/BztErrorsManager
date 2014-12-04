@@ -9,8 +9,8 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="100" />
 					<ColumnDefinition Width="150" />
-					<ColumnDefinition />
-				</Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 				
 				<Grid.RowDefinitions>
 					<RowDefinition />
@@ -20,15 +20,15 @@
 				</Grid.RowDefinitions>
 
 				<Label Grid.Row="0" Grid.Column="0" Content="Type : " Width="100" />
-				<ComboBox Grid.Row="0" Grid.Column="1" Name="cmbTypesRq" ItemsSource="{Binding Path=RqTypes}" SelectedValue="{Binding Path=CurrentRqType}" />
+                <ComboBox Grid.Row="0" Grid.Column="1" Name="cmbTypesRq" ItemsSource="{Binding Path=RqTypes}" SelectedValue="{Binding Path=CurrentRqType}" />
 
-				<Label Grid.Row="1" Grid.Column="0" Content="Code(s) : " />
+                <Label Grid.Row="1" Grid.Column="0" Content="Code(s) : " />
 				<ListBox Grid.Row="1" Grid.Column="1" Name="lbxFaultCodes" MaxHeight="100"
 						 ItemsSource="{Binding Path=FaultCodes}" 
 						 SelectionMode="Multiple"/>
-				<Label Grid.Row="1" Grid.Column="2" Content="(Sélection multiple possible)" />
+                <Label Grid.Row="1" Grid.Column="2" Content="(Sélection multiple possible)" />
 
-				<Label Grid.Row="2" Grid.Column="0" Content="Contenu : " />
+                <Label Grid.Row="2" Grid.Column="0" Content="Contenu : " />
 				<TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=MsgContentFilter}" />
 				<Label Grid.Row="2" Grid.Column="2" Content="Chaîne contenu dans le message (/!\ peut ralentir la recherche!)" />
 				
@@ -47,19 +47,18 @@
 		<StatusBar DockPanel.Dock="Bottom" Height="25">
 			<TextBlock Text="{Binding Path=ConnectionInfo, StringFormat='Connexion : {0}'}" />
 		</StatusBar>
-		
-		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="5,10,5,10">
-			<Button Name="btnTraiter" Command="{Binding Path=SetFlagTraiteCmd}" CommandParameter="{Binding ElementName=dtgFaults, Path=SelectedItems}">
-				<TextBlock Text="Traiter" />
-			</Button>
-		</StackPanel>
 
 		<Expander DockPanel.Dock="Bottom" IsExpanded="False" Header="Message origine" ExpandDirection="Up">
 			<TextBox IsReadOnly="True" VerticalScrollBarVisibility="Auto" Height="250"
 					 Text="{Binding ElementName=dtgFaults, Path=SelectedItem.MessageData}"/>
 		</Expander>
-		
-		<DataGrid Name="dtgFaults" ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False">
+
+        <Expander DockPanel.Dock="Bottom" IsExpanded="False" Header="SQL" ExpandDirection="Up">
+            <TextBox IsReadOnly="True" VerticalScrollBarVisibility="Auto" Height="250"
+					 Text="{Binding Path=SqlQuery}"/>
+        </Expander>
+
+        <DataGrid Name="dtgFaults" ItemsSource="{Binding Path=Items}" AutoGenerateColumns="False">
 			<DataGrid.Columns>
 				<DataGridTemplateColumn>
 					<DataGridTemplateColumn.CellTemplate>

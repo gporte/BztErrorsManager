@@ -86,6 +86,22 @@ namespace BztErrorsManager.Client
 		}
 		#endregion
 
+		#region SqlQuery property
+		private string _sqlQuery;
+		public string SqlQuery
+		{
+			get { return this._sqlQuery; }
+			set
+			{
+				if (this._sqlQuery != value)
+				{
+					this._sqlQuery = value;
+					this.RaisePropertyChangedEvent("SqlQuery");
+				}
+			}
+		}
+		#endregion
+
 		#region MsgContent property
 		private string _msgContent;
 		public string MsgContent {
@@ -131,7 +147,6 @@ namespace BztErrorsManager.Client
 
 		#region Commands
 		public ICommand RefreshListCmd { get; set;}
-		public ICommand SetFlagTraiteCmd { get; set; }
 		#endregion
 
 		public MainViewModel() {
@@ -139,7 +154,6 @@ namespace BztErrorsManager.Client
 			this.ConnectionInfo = this._context.Database.Connection.DataSource;
 
 			this.RefreshListCmd = new RelayCommand<object>(this.RefreshList);
-			this.SetFlagTraiteCmd = new RelayCommand<object>(this.SetFlagTraite);
 
 			this.MsgInfo = "Cliquer sur Rechercher pour lancer la récupération des lignes.";
 
@@ -201,25 +215,7 @@ namespace BztErrorsManager.Client
 			watch.Stop();
 
 			this.MsgInfo = string.Format("{0} ligne(s) remontée(s) (sur un total de {1}) en {2} secondes.", this.Items.Count, rqNbTotal, watch.ElapsedMilliseconds / 1000);
-		}
-
-		private void SetFlagTraite(object param) {
-			var selectedFaults = (IList)param;
-			var faults = selectedFaults.Cast<vw_FaultsByAppheader>();
-
-			try {
-				foreach (var fault in faults) {
-					fault.Treated = true;
-				}
-
-				this._context.SaveChanges();
-
-				this.RefreshList(this._selectedFaultCodes);
-			}
-			catch (Exception ex) {
-				this.MsgInfo = ex.Message;
-				throw;
-			}
+			this.SqlQuery = rqBase.ToString();
 		}
 		#endregion
 
